@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="gothug" id="1">
+        <createTable tableName="film">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="film_pkey"/>
+            </column>
+            <column name="title" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint columnNames="title, year"
+                             constraintName="uniq_film_constraint"
+                             tableName="film"/>
+    </changeSet>
+    <changeSet author="gothug" id="2">
+        <sql>CREATE TYPE resource_type AS ENUM ('Kickass', 'Afisha', 'Rutracker')</sql>
+        <createTable tableName="resource">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="resource_pkey"/>
+            </column>
+            <column name="resource" type="resource_type">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="gothug" id="3">
+        <createTable tableName="search">
+            <column name="film_id" type="integer">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="resource_id" type="integer">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="hash" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_time" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="film_id"
+                                 baseTableName="search"
+                                 constraintName="search_film_id_fk"
+                                 referencedColumnNames="id"
+                                 referencedTableName="film"/>
+        <addForeignKeyConstraint baseColumnNames="resource_id"
+                                 baseTableName="search"
+                                 constraintName="search_resource_id_fk"
+                                 referencedColumnNames="id"
+                                 referencedTableName="resource"/>
+    </changeSet>
+    <changeSet author="gothug" id="4">
+        <insert tableName="resource">
+            <column name="id" value="1"/>
+            <column name="resource" value="Kickass"/>
+        </insert>
+        <insert tableName="resource">
+            <column name="id" value="2"/>
+            <column name="resource" value="Afisha"/>
+        </insert>
+        <insert tableName="resource">
+            <column name="id" value="3"/>
+            <column name="resource" value="Rutracker"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
