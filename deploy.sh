@@ -8,7 +8,7 @@ echo "- local git push:"
 git push
 
 ## Remote commands
-cdCmd='cd /root/docker-spray-example/;'
+cdCmd='cd /root/movie-geek/;'
 
 gitPullCmd='echo; echo "- remote git pull:"; git pull;'
 
