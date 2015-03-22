@@ -11,7 +11,7 @@ mainClass := Some("mvgk.httpservice.DockedServer")
 val sprayVersion = "1+"
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor" % "2+",
+  "com.typesafe.akka" %% "akka-actor" % "2.3.9",
   "io.spray" %% "spray-client"  % sprayVersion,
   "io.spray" %% "spray-can"     % sprayVersion,
   "io.spray" %% "spray-routing" % sprayVersion,
