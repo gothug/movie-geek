@@ -143,7 +143,7 @@ class Mailer(implicit val actorSystem: ActorSystem, implicit val timeout: Timeou
 
     logger.info("Mailer - process watchlists called..")
 
-    val movieTitles = retry(30000, 1000) { getMovieTitles } //retry every second, max 30 secs
+    val movieTitles = retry(60000, 1000) { getMovieTitles } //retry every second, max 60 secs
 
     val url = "http://localhost:8080/search/kickass"
 
