@@ -19,6 +19,8 @@ import mvgk.watchlistparser._
 import mvgk.mailer._
 import mvgk.user
 
+import scala.util.Success
+
 case class Person(name: String, firstName: String, age: Int)
 
 object JsonSupport extends DefaultJsonProtocol {
@@ -115,9 +117,13 @@ object DockedServer extends App with SimpleRoutingApp {
     path("watchlist" / "imdb") {
       post {
         entity(as[WatchListQuery]) { query =>
-          val result = new Parser().parseEnTitlesByMeta(query.link)
+          val result: Future[WatchListMovies] = new Parser().parseEnTitlesByMetaCached(query.link)
 
-          complete(result)
+          result.value match {
+            case Some(Success(x)) => complete(x)
+            case None => complete(202, "pending")
+            case _ => throw new Exception("watchlist imdb parsing error")
+          }
         }
       }
     } ~

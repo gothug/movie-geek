@@ -1,9 +1,13 @@
 package mvgk
 
+import scala.annotation.tailrec
+
 /**
  * @author Got Hug
  */
 package object util {
+  private val DefaultDelay = 100
+
   def getMd5(s: String) = {
     val m = java.security.MessageDigest.getInstance("MD5")
     val b = s.getBytes("UTF-8")
@@ -16,6 +20,21 @@ package object util {
       sys.env(variable)
     } else {
       defaultVal
+    }
+  }
+
+  @tailrec
+  def retry[T](timeout: Long, delay: Long = DefaultDelay)(fn: => T): T = {
+    try {
+      fn
+    } catch {
+      case e: Throwable =>
+        if (timeout <= 0) {
+          throw e
+        } else {
+          Thread.sleep(delay)
+          retry(timeout - delay, delay)(fn)
+        }
     }
   }
 }

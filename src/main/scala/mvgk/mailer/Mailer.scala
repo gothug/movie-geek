@@ -7,6 +7,13 @@ import akka.pattern.ask
 import akka.routing.RoundRobinRouter
 import akka.util.Timeout
 import com.typesafe.scalalogging.slf4j.Logger
+import org.slf4j.LoggerFactory
+import spray.client.pipelining._
+import spray.http._
+import spray.httpx.SprayJsonSupport._
+import scala.collection.mutable.ListBuffer
+import scala.concurrent._
+import scala.concurrent.duration._
 import mvgk.db.DB
 import mvgk.db.MyPostgresDriver.simple._
 import mvgk.db.model.ResourceEnum._
@@ -15,14 +22,7 @@ import mvgk.httpservice.JsonSupport._
 import mvgk.moviesearch.{KickassQuery, MovieQueryResult}
 import mvgk.user
 import mvgk.watchlistparser.{WatchListMovies, WatchListParsedMovie, WatchListQuery}
-import org.slf4j.LoggerFactory
-import spray.client.pipelining._
-import spray.http._
-import spray.httpx.SprayJsonSupport._
-
-import scala.collection.mutable.ListBuffer
-import scala.concurrent._
-import scala.concurrent.duration._
+import mvgk.util.retry
 
 /**
  * @author Got Hug
@@ -143,7 +143,7 @@ class Mailer(implicit val actorSystem: ActorSystem, implicit val timeout: Timeou
 
     logger.info("Mailer - process watchlists called..")
 
-    val movieTitles = getMovieTitles
+    val movieTitles = retry(30000, 1000) { getMovieTitles } //retry every second, max 30 secs
 
     val url = "http://localhost:8080/search/kickass"
 

@@ -10,6 +10,7 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import scala.concurrent._
 import ExecutionContext.Implicits.global
+import spray.caching.LruCache
 
 case class WatchListParsedMovie(title: String, year: Int)
 case class WatchListMovies(list: List[WatchListParsedMovie])
@@ -19,6 +20,10 @@ case class WatchListQuery(link: String)
 /**
  * @author Got Hug
  */
+object Parser {
+  val cache = LruCache[WatchListMovies](timeToLive = 30.minutes)
+}
+
 class Parser {
   val logger = Logger(LoggerFactory.getLogger("mvgk/watchlistparser"))
 
@@ -46,6 +51,10 @@ class Parser {
     logger.info("Watchlist parsed successfully")
 
     watchListMovies
+  }
+
+  def parseEnTitlesByMetaCached(url: String): Future[WatchListMovies] = Parser.cache(url) {
+    Future { parseEnTitlesByMeta(url) }
   }
 
   def parseEnTitlesByMeta(url: String): WatchListMovies = {
@@ -95,7 +104,7 @@ class Parser {
   }
 }
 
-object Parser extends App {
+object ParserTest extends App {
   val parser = new Parser()
 
   val url = "http://www.imdb.com/user/ur9112878/watchlist?ref_=wt_nv_wl_all_0"

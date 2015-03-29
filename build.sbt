@@ -14,6 +14,7 @@ libraryDependencies ++= Seq(
   "io.spray" %% "spray-can"     % "1.3.2",
   "io.spray" %% "spray-routing" % "1.3.2",
   "io.spray" %% "spray-json"    % "1.3.1",
+  "io.spray" %% "spray-caching" % "1.3.1",
   "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   "org.jsoup" % "jsoup" % "1.8.1",
   "net.sourceforge.htmlunit" % "htmlunit" % "2.15",
