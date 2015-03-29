@@ -4,7 +4,7 @@ import akka.actor.{ActorSystem, Props}
 import akka.pattern.ask
 import akka.routing.RoundRobinRouter
 import akka.util.Timeout
-import com.typesafe.scalalogging.slf4j.Logger
+import com.typesafe.scalalogging.Logger
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.slf4j.LoggerFactory
 import spray.http.{HttpRequest, MediaTypes}

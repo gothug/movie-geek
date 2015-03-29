@@ -15,14 +15,15 @@ libraryDependencies ++= Seq(
   "io.spray" %% "spray-routing" % "1.3.2",
   "io.spray" %% "spray-json"    % "1.3.1",
   "io.spray" %% "spray-caching" % "1.3.1",
-  "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
+  "ch.qos.logback" % "logback-classic" % "1.1.2",
   "org.jsoup" % "jsoup" % "1.8.1",
   "net.sourceforge.htmlunit" % "htmlunit" % "2.15",
   "org.seleniumhq.selenium"  % "selenium-java" % "2.45.0" % "test",
   ("org.seleniumhq.selenium" % "selenium-firefox-driver" % "2.45.0").exclude("net.java.dev.jna", "platform"),
   "com.typesafe.slick"  %% "slick" % "2.1.0",
   "com.typesafe.slick"  %% "slick-codegen" % "2.1.0",
-  "com.github.tminglei" %% "slick-pg" % "0.8.2",
+  ("com.github.tminglei" %% "slick-pg" % "0.8.2").exclude("org.slf4j", "slf4j-simple"),
   "org.liquibase" % "liquibase-core" % "2.0.5"
 )
 

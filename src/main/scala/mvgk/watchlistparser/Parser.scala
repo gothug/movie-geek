@@ -1,6 +1,6 @@
 package mvgk.watchlistparser
 
-import com.typesafe.scalalogging.slf4j.Logger
+import com.typesafe.scalalogging.Logger
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.openqa.selenium.firefox.FirefoxDriver

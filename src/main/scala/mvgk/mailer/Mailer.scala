@@ -6,7 +6,7 @@ import akka.actor.{Actor, ActorSystem, Props}
 import akka.pattern.ask
 import akka.routing.RoundRobinRouter
 import akka.util.Timeout
-import com.typesafe.scalalogging.slf4j.Logger
+import com.typesafe.scalalogging.Logger
 import org.slf4j.LoggerFactory
 import spray.client.pipelining._
 import spray.http._

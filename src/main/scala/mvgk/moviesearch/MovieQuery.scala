@@ -1,6 +1,6 @@
 package mvgk.moviesearch
 
-import com.typesafe.scalalogging.slf4j.Logger
+import com.typesafe.scalalogging.Logger
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.slf4j.LoggerFactory
 
