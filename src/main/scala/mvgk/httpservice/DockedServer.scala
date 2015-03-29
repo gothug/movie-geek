@@ -46,7 +46,7 @@ object DockedServer extends App with SimpleRoutingApp {
 
   // scheduling mvgk.mailer
   val mailer = new Mailer()
-  actorSystem.scheduler.schedule(1 hour, 12 hour)(mailer.processWatchLists())
+  actorSystem.scheduler.schedule(1.minute, 2.hour)(mailer.processWatchLists())
 
   // creating firefox instance
 //  val firefoxDriver: FirefoxDriver = initFirefoxDriver()
