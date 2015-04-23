@@ -126,8 +126,8 @@ class Mailer(implicit val actorSystem: ActorSystem, implicit val timeout: Timeou
   def processWatchLists() = {
     def getMovieTitles: WatchListMovies = {
       val pipeline: HttpRequest => Future[WatchListMovies] = sendReceive ~> unmarshal[WatchListMovies]
-      val url = "http://localhost:8080/watchlist/imdb"
-      val watchlistLink = "http://www.imdb.com/user/ur9112878/watchlist?ref_=wt_nv_wl_all_0"
+      val url = "http://109.234.35.251:9090/watchlist/imdb"
+      val watchlistLink = "http://www.imdb.com/user/ur9112878/watchlist?ref_=wt_nv_wl_all_0&mode=grid"
       val response = pipeline(Post(url, WatchListQuery(watchlistLink)))
       Await.result(response, 25 seconds)
     }
@@ -145,7 +145,7 @@ class Mailer(implicit val actorSystem: ActorSystem, implicit val timeout: Timeou
 
     val movieTitles = retry(60000, 1000) { getMovieTitles } //retry every second, max 60 secs
 
-    val url = "http://localhost:8080/search/kickass"
+    val url = "http://109.234.35.251:9090/search/kickass"
 
     val moviesList = movieTitles.list //.filter(x => ("london".r findFirstIn x.title).isDefined)
 

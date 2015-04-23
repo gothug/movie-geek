@@ -107,7 +107,7 @@ class Parser {
 object ParserTest extends App {
   val parser = new Parser()
 
-  val url = "http://www.imdb.com/user/ur9112878/watchlist?ref_=wt_nv_wl_all_0"
+  val url = "http://www.imdb.com/user/ur9112878/watchlist?ref_=wt_nv_wl_all_0&mode=grid"
 
   val titles = parser.parseEnTitlesByMeta(url)
 }
