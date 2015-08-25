@@ -19,7 +19,7 @@ object User {
   private val accounts =
     Seq(
       UserAccount("kojuhovskiy@gmail.com", Some("Vasek"), subscribed = true),
-      UserAccount("Olga.Goi@gmail.com", Some("Olga Goi"), subscribed = false)
+      UserAccount("Olga.Goi@gmail.com", Some("Olga Goi"), subscribed = true)
     )
 
   val user = User(accounts)
